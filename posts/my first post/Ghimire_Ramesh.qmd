@@ -1,0 +1,393 @@
+---
+title: "ADTA 5410 by Bulut"
+author: "Ramesh Ghimire"
+format: html
+editor: visual
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(rpart)
+library(rsample)
+library(caret)
+library(mgcv)
+
+knitr::opts_chunk$set(echo = TRUE)
+
+
+
+```
+
+## 
+
+## Business Problem
+
+We'll be exploring the 2004 North Carolina birth records. Our focus will be on examining the connection between the behaviors and routines of pregnant mothers and the outcomes of their childbirth. Please note, the dataset we'll be using is a randomly selected subset of the original dataset.
+
+**Attributes:**
+
+-   **Predictors**
+
+    -   **fage**: father's age in years.
+
+    -   **mage**: mother's age in years.
+
+    -   **mature**: maturity status of mother.
+
+    -   **weeks**: length of pregnancy in weeks.
+
+    -   **premie**: whether the birth was classified as premature (premie) or full-term.
+
+    -   **visits**: number of hospital visits during pregnancy.
+
+    -   **marital**: whether mother is married or not married at birth.
+
+    -   **gained**: weight gained by mother during pregnancy in pounds.
+
+    -   **gender**: gender of the baby, female or male.
+
+    -   **habit**: status of the mother as a nonsmoker or a smoker.
+
+    -   **whitemom**: whether mother is white or not white.
+
+**Outcome Variable:**
+
+-   **weight**: weight of the baby at birth in pounds. (Regression problem)
+
+#### Do not change anything in this r chunk. Just run the code chunk and move to the next one
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+# Run this code chunk without altering it
+# clear the session
+rm(list=ls())
+
+# Data is stored in a csv file, the first row contains the variable names. 
+# we call our data mydata
+mydata<-read.csv ("Data_RLab5.csv", header=TRUE)
+
+# remove lowbirthweight
+mydata<-mydata%>%
+  select(-lowbirthweight)
+
+
+
+
+```
+
+## 
+
+::: {.callout-important appearance="simple"}
+## Task 1
+
+1.  **Data Structure Check**:
+
+    -   Examine the variable descriptions and the overall structure of the dataset in **`mydata`**.
+
+    -   Ensure that each variable is correctly coded in the R object. Specifically, numeric variables should be in numeric format, and factor variables should be coded as factors.
+
+2.  **Handling Missing Values**:
+
+    -   Identify and replace missing values in your dataset.
+
+        -   For numeric variables, fill missing values with the median of that variable.
+
+        -   For categorical variables, use the most frequent category (mode) to replace missing values.
+
+3.  **Correlation Analysis and Visualization**:
+
+    -   Determine the variable that has the highest correlation (in absolute value) with your chosen target variable.
+
+    -   Create a scatter plot to visually represent the relationship between these two variables.
+
+    -   Provide a brief commentary on the scatter plot. Discuss any notable patterns, trends, or insights you observe.
+
+    -   **Insert your written response in here:**
+:::
+
+## 
+
+1.  **Data Structure Check**:
+
+    -   Examine the variable descriptions and the overall structure of the dataset in **`mydata`**.
+
+    -   Ensure that each variable is correctly coded in the R object. Specifically, numeric variables should be in numeric format, and factor variables should be coded as factors.
+
+```{r, echo=TRUE}
+
+# Display the structure of the dataset
+str(mydata)
+
+
+```
+
+```{r, echo=TRUE}
+
+# Summary statistics for numeric variables
+summary(mydata)
+
+```
+
+```{r, echo=TRUE}
+
+# Check class/type of each variable
+sapply(mydata, class)
+```
+
+```{r, echo=TRUE}
+
+# Check factor levels for factor variables
+sapply(mydata, function(x) if(is.factor(x)) levels(x))
+```
+
+```{r, echo=TRUE}
+
+# Recode variables as needed
+mydata$mature <- as.factor(mydata$mature)
+mydata$premie <- as.factor(mydata$premie) 
+
+```
+
+```{r, echo=TRUE}
+
+# Confirm classes after recoding
+sapply(mydata, class)
+
+
+```
+
+1.  **Handling Missing Values**:
+
+    -   Identify and replace missing values in your dataset.
+
+        -   For numeric variables, fill missing values with the median of that variable.
+
+        -   For categorical variables, use the most frequent category (mode) to replace missing values.
+
+```{r, echo=TRUE}
+
+
+library(dplyr)
+library(tidyr)
+
+# Identify missing values
+sapply(mydata, function(x) sum(is.na(x)))
+
+```
+
+```{r, echo=TRUE}
+
+# Numeric variables - fill with median
+num_vars <- c("fage", "mage", "weeks", "visits", "gained", "weight")
+for(v in num_vars) {
+  med <- median(mydata[[v]], na.rm = TRUE) 
+  mydata[[v]][is.na(mydata[[v]])] <- med
+}
+
+```
+
+```{r, echo=TRUE}
+
+# Categorical variables - fill with mode 
+cat_vars <- c("mature", "premie", "marital", "gender", "habit", "whitemom")
+for(v in cat_vars) {
+  mod <- names(which.max(table(mydata[[v]])))
+  mydata[[v]][is.na(mydata[[v]])] <- mod  
+}
+```
+
+```{r, echo=TRUE}
+
+# Check if any NAs remain
+sapply(mydata, function(x) sum(is.na(x)))
+```
+
+**Correlation Analysis and Visualization**:
+
+-   Determine the variable that has the highest correlation (in absolute value) with your chosen target variable.
+
+-   Create a scatter plot to visually represent the relationship between these two variables.
+
+-   Provide a brief commentary on the scatter plot. Discuss any notable patterns, trends, or insights you observe.
+
+```{r}
+
+# Determine variable with highest correlation
+cor_mat <- cor(mydata[sapply(mydata, is.numeric)], use="pairwise.complete.obs")
+highest_cor <- which.max(abs(cor_mat["weight",]))
+names(highest_cor) 
+
+# Plot scatterplot 
+target_var <- "weight"
+pred_var <- names(highest_cor)
+
+ggplot(mydata, aes_string(x = pred_var, y = target_var)) + 
+  geom_point(alpha = 0.5) +
+  ggtitle(paste0("Scatterplot of ", target_var, " vs ", pred_var))
+```
+
+Weight gained exhibits the highest absolute correlation with birth weight. The graph illustrates a positive correlation, indicating that mothers who gained extra weight during pregnancy tended to have babies with higher weights. Although there are a few outliers, the general trend suggests that weight gain during pregnancy supports fetal development.
+
+## 
+
+------------------------------------------------------------------------
+
+::: {.callout-important appearance="simple"}
+## Task 2
+
+-   Prior to starting our analysis, we will divide our dataset into two parts: a training set and a test set. For this lab assignment, you'll need to use the **`initial_split`** function from the **`rsample`** package in R to partition the data. Please ensure to use **`set.seed(123456)`** for reproducibility. Allocate 70% of the data to the training set and go with the default options in initial_split function. Conduct stratified sampling by using `strata="weight"`.
+
+-   Name your training set **`train_data`** and your test set **`test_data`**. This division will be crucial for our analysis, allowing us to train our models effectively and test their performance.
+:::
+
+## 
+
+```{r, echo=TRUE}
+# Please provide your code for Task 2 in this code chunk
+# split the sample by using rsample package
+
+# Split the data into a training set (70%) and a test set (30%)
+set.seed(123456)
+
+# Load rsample package
+library(rsample)
+
+# Take a 70/30 split stratified on weight 
+split <- initial_split(mydata, prop = 0.7, strata = "weight")
+
+# Extract training and test sets
+train_data <- training(split) 
+test_data <- testing(split)
+
+# Check proportions
+prop.table(table(train_data$weight)) 
+prop.table(table(test_data$weight))
+
+```
+
+```{r}
+
+split <- initial_split(mydata, prop = 0.7, strata = "weight")
+
+train_data <- training(split)
+test_data <- testing(split)
+```
+
+## 
+
+::: {.callout-important appearance="simple"}
+## Task 3
+
+-   In this task, you will be using the **`train_data`** dataset to run a linear regression that takes `weight` as the dependent variable and all the other columns as the predictor.
+
+    -   You will use the **`lm()`** function to estimate your linear model and name it as **`linearmodel`**.
+
+    -   Use the **`predict()`** function to predict the `weight` variable in the **`test_data`** dataset using **`linearmodel`**.
+
+    -   Store the resulting predictions in a new object called **`predicted_weights_ols`**.
+
+    -   Calculate the mean squared prediction error in the **`test_data`** dataset by comparing the predicted `weight` values with the actual `weight` values. Store the resulting value in an object called **`MSPE_linear`**.
+
+-   **Need Written Response:** Print the value of **`MSPE_linear`** to the console using the **`print()`** function
+:::
+
+## 
+
+```{r, echo=TRUE}
+# Please provide your code for Task 3  in this code chunk
+
+
+# Linear model on training data 
+linearmodel <- lm(weight ~ ., data = train_data)
+
+# Make predictions on test data
+predicted_weights_ols <- predict(linearmodel, newdata = test_data)
+
+# Calculate MSPE
+MSPE_linear <- mean((test_data$weight - predicted_weights_ols)^2)
+
+# Print MSPE
+print(MSPE_linear)
+
+```
+
+MSPE_linear = 1.2600889, indicates improved predictions on the unseen test dataset, affirming the efficacy of the model trained on the training dataset.
+
+## Task 4:
+
+::: {.callout-important appearance="simple"}
+## Task 4
+
+-   Use the `gam` function in the **`mgcv`** package to complete the same task. In other words, fit a Generalized additive model (GAM) on the `train_data` using the **`gam()`** function. Use the **`s()`** function for each **suitable** predictor. Save your R object as `gam_model.` If the `gam` output indicates that a variable should be added linearly to the model, then make the necessary changes in `gam_model` and explain your reasoning. As for the parameter tuning, let the package automatically selects the optimal lambda by using the method = "REML".
+-   Print out smoothing parameter from `gam_model.`
+-   Use the **`predict()`** function to predict the `weight` variable in the **`test_data`** dataset using **`gam_model`**. Store the resulting predictions in a new object called **`predicted_weights_gam`**.
+-   Calculate the mean squared prediction error in the **`test_data`** dataset by comparing the predicted 'weight' values with the actual `weight` values. Store the resulting value in an object called **`MSPE_gam`**.
+
+Print the value of **`MSPE_gam`** to the console using the **`print()`** function.
+:::
+
+## 
+
+```{r, echo=TRUE}
+# Please provide your code for Task 4 in this code chunk
+
+library(mgcv)
+
+# Fit GAM model
+gam_model <- gam(weight ~ s(fage) + s(mage) + s(weeks) + s(visits) + 
+                  s(gained) + marital + gender + habit + whitemom, 
+                data = train_data,
+                method = "REML")
+
+# Print smoothing parameters
+print(summary(gam_model)$s.table)
+
+
+```
+
+```{r}
+
+# Make predictions on test set
+predicted_weights_gam <- predict(gam_model, newdata = test_data)
+
+# Calculate MSPE 
+MSPE_gam <- mean((test_data$weight - predicted_weights_gam)^2)
+
+# Print MSPE
+print(MSPE_gam)
+```
+
+MSPE_gam = 1.16755, reflects lower error and improved predictions in the GAM model, attributed to the incorporation of non-linear smoothing functions for continuous predictors.
+
+## 
+
+::: {.callout-important appearance="simple"}
+## Task 5
+
+-   Evaluate the effectiveness of the linear regression model (**`linearmodel`**) and the generalized additive model (**`gam_model`**) by comparing their Mean Squared Prediction Errors (MSPE). Utilize the values **`MSPE_linear`** and **`MSPE_gam`**, which were derived in previous tasks, to assess which model more accurately predicts the 'weight' variable in the **`test_data`** dataset. The model with the lower MSPE value will be considered as having superior predictive performance for this specific variable.
+-   **Insert your written response in here:**
+:::
+
+## Your code for Task 5
+
+```{r, echo=TRUE}
+# Linear Regression MSPE: MSPE_linear = 1.260889
+
+# GAM Model MSPE: MSPE_gam = 1.16755
+```
+
+Linear Regression MSPE: 1.260889
+
+GAM Model MSPE: 1.16755
+
+A lower MSPE signifies enhanced predictive accuracy for the 'weight' variable in the test dataset. In this comparison:
+
+-   If MSPE_linear \< MSPE_gam: Linear regression outperforms in predictive performance.
+
+-   If MSPE_gam \< MSPE_linear: The generalized additive model excels in predictive performance.
+
+-   If MSPE_linear ≈ MSPE_gam: Both models perform similarly in predicting the 'weight' variable.
+
+Analysis reveals the GAM model's superiority with a lower MSPE of 1.117023, indicating reduced deviation between actual and predicted values.

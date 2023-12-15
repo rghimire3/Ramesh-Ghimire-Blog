@@ -1,0 +1,22 @@
+project:
+  type: website
+
+website:
+  title: "Welcome to my Blog"
+  navbar:
+    right:
+      - about.qmd
+      - icon: github
+        href: https://github.com/rghimire3
+      - icon: twitter
+        href: https://twitter.com/rghimire3
+      - icon: linkedin
+        href: https://www.linkedin.com/in/rghimire3
+      
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+
+editor: visual
+

@@ -1,0 +1,14 @@
+{
+  "hash": "ac99cee9f4f12c381e1be8d9a5f7fea3",
+  "result": {
+    "markdown": "---\ntitle: \"Linear regression\"\nauthor: \"Ramesh Ghimire\"\ndate: \"2023-12-14\"\ncategories: [news, code, analysis]\nimage: \"image.jpg\"\n---\n\n\nHi, Lets run a code\n\n\n::: {.cell}\n\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,13 @@
+---
+title: "Linear regression"
+author: "Ramesh Ghimire"
+date: "2023-12-14"
+categories: [news, code, analysis]
+image: "image.jpg"
+---
+
+Hi, Lets run a code
+
+```{r, echo=TRUE}
+
+```
