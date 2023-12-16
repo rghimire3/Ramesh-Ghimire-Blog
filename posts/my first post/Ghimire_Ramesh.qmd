@@ -1,5 +1,5 @@
 ---
-title: "ADTA 5410 by Bulut"
+title: "R project "
 author: "Ramesh Ghimire"
 format: html
 editor: visual
@@ -23,42 +23,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## 
 
-## Business Problem
-
-We'll be exploring the 2004 North Carolina birth records. Our focus will be on examining the connection between the behaviors and routines of pregnant mothers and the outcomes of their childbirth. Please note, the dataset we'll be using is a randomly selected subset of the original dataset.
-
-**Attributes:**
-
--   **Predictors**
-
-    -   **fage**: father's age in years.
-
-    -   **mage**: mother's age in years.
-
-    -   **mature**: maturity status of mother.
-
-    -   **weeks**: length of pregnancy in weeks.
-
-    -   **premie**: whether the birth was classified as premature (premie) or full-term.
-
-    -   **visits**: number of hospital visits during pregnancy.
-
-    -   **marital**: whether mother is married or not married at birth.
-
-    -   **gained**: weight gained by mother during pregnancy in pounds.
-
-    -   **gender**: gender of the baby, female or male.
-
-    -   **habit**: status of the mother as a nonsmoker or a smoker.
-
-    -   **whitemom**: whether mother is white or not white.
-
-**Outcome Variable:**
-
--   **weight**: weight of the baby at birth in pounds. (Regression problem)
-
-#### Do not change anything in this r chunk. Just run the code chunk and move to the next one
-
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 # Run this code chunk without altering it
 # clear the session
@@ -78,42 +42,6 @@ mydata<-mydata%>%
 ```
 
 ## 
-
-::: {.callout-important appearance="simple"}
-## Task 1
-
-1.  **Data Structure Check**:
-
-    -   Examine the variable descriptions and the overall structure of the dataset in **`mydata`**.
-
-    -   Ensure that each variable is correctly coded in the R object. Specifically, numeric variables should be in numeric format, and factor variables should be coded as factors.
-
-2.  **Handling Missing Values**:
-
-    -   Identify and replace missing values in your dataset.
-
-        -   For numeric variables, fill missing values with the median of that variable.
-
-        -   For categorical variables, use the most frequent category (mode) to replace missing values.
-
-3.  **Correlation Analysis and Visualization**:
-
-    -   Determine the variable that has the highest correlation (in absolute value) with your chosen target variable.
-
-    -   Create a scatter plot to visually represent the relationship between these two variables.
-
-    -   Provide a brief commentary on the scatter plot. Discuss any notable patterns, trends, or insights you observe.
-
-    -   **Insert your written response in here:**
-:::
-
-## 
-
-1.  **Data Structure Check**:
-
-    -   Examine the variable descriptions and the overall structure of the dataset in **`mydata`**.
-
-    -   Ensure that each variable is correctly coded in the R object. Specifically, numeric variables should be in numeric format, and factor variables should be coded as factors.
 
 ```{r, echo=TRUE}
 
@@ -158,14 +86,6 @@ sapply(mydata, class)
 
 ```
 
-1.  **Handling Missing Values**:
-
-    -   Identify and replace missing values in your dataset.
-
-        -   For numeric variables, fill missing values with the median of that variable.
-
-        -   For categorical variables, use the most frequent category (mode) to replace missing values.
-
 ```{r, echo=TRUE}
 
 
@@ -204,14 +124,6 @@ for(v in cat_vars) {
 sapply(mydata, function(x) sum(is.na(x)))
 ```
 
-**Correlation Analysis and Visualization**:
-
--   Determine the variable that has the highest correlation (in absolute value) with your chosen target variable.
-
--   Create a scatter plot to visually represent the relationship between these two variables.
-
--   Provide a brief commentary on the scatter plot. Discuss any notable patterns, trends, or insights you observe.
-
 ```{r}
 
 # Determine variable with highest correlation
@@ -233,14 +145,6 @@ Weight gained exhibits the highest absolute correlation with birth weight. The g
 ## 
 
 ------------------------------------------------------------------------
-
-::: {.callout-important appearance="simple"}
-## Task 2
-
--   Prior to starting our analysis, we will divide our dataset into two parts: a training set and a test set. For this lab assignment, you'll need to use the **`initial_split`** function from the **`rsample`** package in R to partition the data. Please ensure to use **`set.seed(123456)`** for reproducibility. Allocate 70% of the data to the training set and go with the default options in initial_split function. Conduct stratified sampling by using `strata="weight"`.
-
--   Name your training set **`train_data`** and your test set **`test_data`**. This division will be crucial for our analysis, allowing us to train our models effectively and test their performance.
-:::
 
 ## 
 
@@ -278,22 +182,7 @@ test_data <- testing(split)
 ## 
 
 ::: {.callout-important appearance="simple"}
-## Task 3
-
--   In this task, you will be using the **`train_data`** dataset to run a linear regression that takes `weight` as the dependent variable and all the other columns as the predictor.
-
-    -   You will use the **`lm()`** function to estimate your linear model and name it as **`linearmodel`**.
-
-    -   Use the **`predict()`** function to predict the `weight` variable in the **`test_data`** dataset using **`linearmodel`**.
-
-    -   Store the resulting predictions in a new object called **`predicted_weights_ols`**.
-
-    -   Calculate the mean squared prediction error in the **`test_data`** dataset by comparing the predicted `weight` values with the actual `weight` values. Store the resulting value in an object called **`MSPE_linear`**.
-
--   **Need Written Response:** Print the value of **`MSPE_linear`** to the console using the **`print()`** function
 :::
-
-## 
 
 ```{r, echo=TRUE}
 # Please provide your code for Task 3  in this code chunk
@@ -314,19 +203,6 @@ print(MSPE_linear)
 ```
 
 MSPE_linear = 1.2600889, indicates improved predictions on the unseen test dataset, affirming the efficacy of the model trained on the training dataset.
-
-## Task 4:
-
-::: {.callout-important appearance="simple"}
-## Task 4
-
--   Use the `gam` function in the **`mgcv`** package to complete the same task. In other words, fit a Generalized additive model (GAM) on the `train_data` using the **`gam()`** function. Use the **`s()`** function for each **suitable** predictor. Save your R object as `gam_model.` If the `gam` output indicates that a variable should be added linearly to the model, then make the necessary changes in `gam_model` and explain your reasoning. As for the parameter tuning, let the package automatically selects the optimal lambda by using the method = "REML".
--   Print out smoothing parameter from `gam_model.`
--   Use the **`predict()`** function to predict the `weight` variable in the **`test_data`** dataset using **`gam_model`**. Store the resulting predictions in a new object called **`predicted_weights_gam`**.
--   Calculate the mean squared prediction error in the **`test_data`** dataset by comparing the predicted 'weight' values with the actual `weight` values. Store the resulting value in an object called **`MSPE_gam`**.
-
-Print the value of **`MSPE_gam`** to the console using the **`print()`** function.
-:::
 
 ## 
 
@@ -362,15 +238,6 @@ print(MSPE_gam)
 MSPE_gam = 1.16755, reflects lower error and improved predictions in the GAM model, attributed to the incorporation of non-linear smoothing functions for continuous predictors.
 
 ## 
-
-::: {.callout-important appearance="simple"}
-## Task 5
-
--   Evaluate the effectiveness of the linear regression model (**`linearmodel`**) and the generalized additive model (**`gam_model`**) by comparing their Mean Squared Prediction Errors (MSPE). Utilize the values **`MSPE_linear`** and **`MSPE_gam`**, which were derived in previous tasks, to assess which model more accurately predicts the 'weight' variable in the **`test_data`** dataset. The model with the lower MSPE value will be considered as having superior predictive performance for this specific variable.
--   **Insert your written response in here:**
-:::
-
-## Your code for Task 5
 
 ```{r, echo=TRUE}
 # Linear Regression MSPE: MSPE_linear = 1.260889

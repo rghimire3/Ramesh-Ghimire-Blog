@@ -8,7 +8,7 @@
 
 <meta name="author" content="Ramesh Ghimire">
 
-<title>Welcome to my Blog - ADTA 5410 by Bulut</title>
+<title>Welcome to my Blog - R project</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">ADTA 5410 by Bulut</h1>
+      <h1 class="title">R project</h1>
                       </div>
   </div>
     
@@ -177,80 +177,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="section" class="level2">
 <h2 class="anchored" data-anchor-id="section"></h2>
 </section>
-<section id="business-problem" class="level2">
-<h2 class="anchored" data-anchor-id="business-problem">Business Problem</h2>
-<p>We’ll be exploring the 2004 North Carolina birth records. Our focus will be on examining the connection between the behaviors and routines of pregnant mothers and the outcomes of their childbirth. Please note, the dataset we’ll be using is a randomly selected subset of the original dataset.</p>
-<p><strong>Attributes:</strong></p>
-<ul>
-<li><p><strong>Predictors</strong></p>
-<ul>
-<li><p><strong>fage</strong>: father’s age in years.</p></li>
-<li><p><strong>mage</strong>: mother’s age in years.</p></li>
-<li><p><strong>mature</strong>: maturity status of mother.</p></li>
-<li><p><strong>weeks</strong>: length of pregnancy in weeks.</p></li>
-<li><p><strong>premie</strong>: whether the birth was classified as premature (premie) or full-term.</p></li>
-<li><p><strong>visits</strong>: number of hospital visits during pregnancy.</p></li>
-<li><p><strong>marital</strong>: whether mother is married or not married at birth.</p></li>
-<li><p><strong>gained</strong>: weight gained by mother during pregnancy in pounds.</p></li>
-<li><p><strong>gender</strong>: gender of the baby, female or male.</p></li>
-<li><p><strong>habit</strong>: status of the mother as a nonsmoker or a smoker.</p></li>
-<li><p><strong>whitemom</strong>: whether mother is white or not white.</p></li>
-</ul></li>
-</ul>
-<p><strong>Outcome Variable:</strong></p>
-<ul>
-<li><strong>weight</strong>: weight of the baby at birth in pounds. (Regression problem)</li>
-</ul>
-<section id="do-not-change-anything-in-this-r-chunk.-just-run-the-code-chunk-and-move-to-the-next-one" class="level4">
-<h4 class="anchored" data-anchor-id="do-not-change-anything-in-this-r-chunk.-just-run-the-code-chunk-and-move-to-the-next-one">Do not change anything in this r chunk. Just run the code chunk and move to the next one</h4>
-</section>
-</section>
-<section id="task-1-data-preparation" class="level2">
-<h2 class="anchored" data-anchor-id="task-1-data-preparation">Task 1: Data Preparation</h2>
-<div class="callout callout-style-simple callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task 1
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li><p><strong>Data Structure Check</strong>:</p>
-<ul>
-<li><p>Examine the variable descriptions and the overall structure of the dataset in <strong><code>mydata</code></strong>.</p></li>
-<li><p>Ensure that each variable is correctly coded in the R object. Specifically, numeric variables should be in numeric format, and factor variables should be coded as factors.</p></li>
-</ul></li>
-<li><p><strong>Handling Missing Values</strong>:</p>
-<ul>
-<li><p>Identify and replace missing values in your dataset.</p>
-<ul>
-<li><p>For numeric variables, fill missing values with the median of that variable.</p></li>
-<li><p>For categorical variables, use the most frequent category (mode) to replace missing values.</p></li>
-</ul></li>
-</ul></li>
-<li><p><strong>Correlation Analysis and Visualization</strong>:</p>
-<ul>
-<li><p>Determine the variable that has the highest correlation (in absolute value) with your chosen target variable.</p></li>
-<li><p>Create a scatter plot to visually represent the relationship between these two variables.</p></li>
-<li><p>Provide a brief commentary on the scatter plot. Discuss any notable patterns, trends, or insights you observe.</p></li>
-<li><p><strong>Insert your written response in here:</strong></p></li>
-</ul></li>
-</ol>
-</div>
-</div>
-</section>
-<section id="your-code-for-task-1" class="level2">
-<h2 class="anchored" data-anchor-id="your-code-for-task-1">Your code for Task 1</h2>
-<ol type="1">
-<li><p><strong>Data Structure Check</strong>:</p>
-<ul>
-<li><p>Examine the variable descriptions and the overall structure of the dataset in <strong><code>mydata</code></strong>.</p></li>
-<li><p>Ensure that each variable is correctly coded in the R object. Specifically, numeric variables should be in numeric format, and factor variables should be coded as factors.</p></li>
-</ul></li>
-</ol>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1"></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the structure of the dataset</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mydata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -366,16 +294,6 @@ NULL</code></pre>
 "character"   "integer"   "numeric" "character" "character" "character" </code></pre>
 </div>
 </div>
-<ol type="1">
-<li><p><strong>Handling Missing Values</strong>:</p>
-<ul>
-<li><p>Identify and replace missing values in your dataset.</p>
-<ul>
-<li><p>For numeric variables, fill missing values with the median of that variable.</p></li>
-<li><p>For categorical variables, use the most frequent category (mode) to replace missing values.</p></li>
-</ul></li>
-</ul></li>
-</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
@@ -415,12 +333,6 @@ NULL</code></pre>
        0        0        0        0 </code></pre>
 </div>
 </div>
-<p><strong>Correlation Analysis and Visualization</strong>:</p>
-<ul>
-<li><p>Determine the variable that has the highest correlation (in absolute value) with your chosen target variable.</p></li>
-<li><p>Create a scatter plot to visually represent the relationship between these two variables.</p></li>
-<li><p>Provide a brief commentary on the scatter plot. Discuss any notable patterns, trends, or insights you observe.</p></li>
-</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine variable with highest correlation</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>cor_mat <span class="ot">&lt;-</span> <span class="fu">cor</span>(mydata[<span class="fu">sapply</span>(mydata, is.numeric)], <span class="at">use=</span><span class="st">"pairwise.complete.obs"</span>)</span>
@@ -447,28 +359,12 @@ NULL</code></pre>
 </div>
 <p>Weight gained exhibits the highest absolute correlation with birth weight. The graph illustrates a positive correlation, indicating that mothers who gained extra weight during pregnancy tended to have babies with higher weights. Although there are a few outliers, the general trend suggests that weight gain during pregnancy supports fetal development.</p>
 </section>
-<section id="task-2-data-splitting" class="level2">
-<h2 class="anchored" data-anchor-id="task-2-data-splitting">Task 2: Data Splitting</h2>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2"></h2>
 <hr>
-<div class="callout callout-style-simple callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task 2
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><p>Prior to starting our analysis, we will divide our dataset into two parts: a training set and a test set. For this lab assignment, you’ll need to use the <strong><code>initial_split</code></strong> function from the <strong><code>rsample</code></strong> package in R to partition the data. Please ensure to use <strong><code>set.seed(123456)</code></strong> for reproducibility. Allocate 70% of the data to the training set and go with the default options in initial_split function. Conduct stratified sampling by using <code>strata="weight"</code>.</p></li>
-<li><p>Name your training set <strong><code>train_data</code></strong> and your test set <strong><code>test_data</code></strong>. This division will be crucial for our analysis, allowing us to train our models effectively and test their performance.</p></li>
-</ul>
-</div>
-</div>
 </section>
-<section id="your-code-for-task-2" class="level2">
-<h2 class="anchored" data-anchor-id="your-code-for-task-2">Your code for Task 2</h2>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3"></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Please provide your code for Task 2 in this code chunk</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># split the sample by using rsample package</span></span>
@@ -575,33 +471,18 @@ Task 2
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> <span class="fu">testing</span>(split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="task-3" class="level2">
-<h2 class="anchored" data-anchor-id="task-3">Task 3:</h2>
-<div class="callout callout-style-simple callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4"></h2>
+<div class="callout callout-style-simple callout-important">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-Task 3
+<div class="callout-body-container">
+
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><p>In this task, you will be using the <strong><code>train_data</code></strong> dataset to run a linear regression that takes <code>weight</code> as the dependent variable and all the other columns as the predictor.</p>
-<ul>
-<li><p>You will use the <strong><code>lm()</code></strong> function to estimate your linear model and name it as <strong><code>linearmodel</code></strong>.</p></li>
-<li><p>Use the <strong><code>predict()</code></strong> function to predict the <code>weight</code> variable in the <strong><code>test_data</code></strong> dataset using <strong><code>linearmodel</code></strong>.</p></li>
-<li><p>Store the resulting predictions in a new object called <strong><code>predicted_weights_ols</code></strong>.</p></li>
-<li><p>Calculate the mean squared prediction error in the <strong><code>test_data</code></strong> dataset by comparing the predicted <code>weight</code> values with the actual <code>weight</code> values. Store the resulting value in an object called <strong><code>MSPE_linear</code></strong>.</p></li>
-</ul></li>
-<li><p><strong>Need Written Response:</strong> Print the value of <strong><code>MSPE_linear</code></strong> to the console using the <strong><code>print()</code></strong> function</p></li>
-</ul>
 </div>
-</div>
-</section>
-<section id="your-code-for-task-3" class="level2">
-<h2 class="anchored" data-anchor-id="your-code-for-task-3">Your code for Task 3</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Please provide your code for Task 3  in this code chunk</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -623,30 +504,8 @@ Task 3
 </div>
 <p>MSPE_linear = 1.2600889, indicates improved predictions on the unseen test dataset, affirming the efficacy of the model trained on the training dataset.</p>
 </section>
-<section id="task-4" class="level2">
-<h2 class="anchored" data-anchor-id="task-4">Task 4:</h2>
-<div class="callout callout-style-simple callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task 4
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Use the <code>gam</code> function in the <strong><code>mgcv</code></strong> package to complete the same task. In other words, fit a Generalized additive model (GAM) on the <code>train_data</code> using the <strong><code>gam()</code></strong> function. Use the <strong><code>s()</code></strong> function for each <strong>suitable</strong> predictor. Save your R object as <code>gam_model.</code> If the <code>gam</code> output indicates that a variable should be added linearly to the model, then make the necessary changes in <code>gam_model</code> and explain your reasoning. As for the parameter tuning, let the package automatically selects the optimal lambda by using the method = “REML”.</li>
-<li>Print out smoothing parameter from <code>gam_model.</code></li>
-<li>Use the <strong><code>predict()</code></strong> function to predict the <code>weight</code> variable in the <strong><code>test_data</code></strong> dataset using <strong><code>gam_model</code></strong>. Store the resulting predictions in a new object called <strong><code>predicted_weights_gam</code></strong>.</li>
-<li>Calculate the mean squared prediction error in the <strong><code>test_data</code></strong> dataset by comparing the predicted ‘weight’ values with the actual <code>weight</code> values. Store the resulting value in an object called <strong><code>MSPE_gam</code></strong>.</li>
-</ul>
-<p>Print the value of <strong><code>MSPE_gam</code></strong> to the console using the <strong><code>print()</code></strong> function.</p>
-</div>
-</div>
-</section>
-<section id="your-code-for-task-4" class="level2">
-<h2 class="anchored" data-anchor-id="your-code-for-task-4">Your code for Task 4</h2>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5"></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Please provide your code for Task 4 in this code chunk</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -684,27 +543,8 @@ s(gained) 1.000384 1.000768   6.82021548 0.009196795</code></pre>
 </div>
 <p>MSPE_gam = 1.16755, reflects lower error and improved predictions in the GAM model, attributed to the incorporation of non-linear smoothing functions for continuous predictors.</p>
 </section>
-<section id="task-5" class="level2">
-<h2 class="anchored" data-anchor-id="task-5">TASK 5:</h2>
-<div class="callout callout-style-simple callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task 5
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Evaluate the effectiveness of the linear regression model (<strong><code>linearmodel</code></strong>) and the generalized additive model (<strong><code>gam_model</code></strong>) by comparing their Mean Squared Prediction Errors (MSPE). Utilize the values <strong><code>MSPE_linear</code></strong> and <strong><code>MSPE_gam</code></strong>, which were derived in previous tasks, to assess which model more accurately predicts the ‘weight’ variable in the <strong><code>test_data</code></strong> dataset. The model with the lower MSPE value will be considered as having superior predictive performance for this specific variable.</li>
-<li><strong>Insert your written response in here:</strong></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="your-code-for-task-5" class="level2">
-<h2 class="anchored" data-anchor-id="your-code-for-task-5">Your code for Task 5</h2>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6"></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear Regression MSPE: MSPE_linear = 1.260889</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
