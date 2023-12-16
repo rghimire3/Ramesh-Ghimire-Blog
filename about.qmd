@@ -17,4 +17,7 @@ about:
 
 Hello and good morning all,
 
-I am Ramesh Ghimire.
+I am Ramesh Ghimire. As a Sr. Business Intelligence Engineer at H-E-B, I support the data and analytics needs of various business units, such as marketing, finance, and operations. I use SQL, Python, AWS Databricks, and Salesforce to design, develop, and deliver robust and scalable data solutions that enable data-driven decision making and optimize business performance. I also collaborate with cross-functional teams to provide data visualization and reporting using Tableau, MicroStrategy, and Confluence.
+
+\
+I am passionate about learning new technologies and applying analytics to solve complex business challenges. I am currently pursuing a PhD in Data Science at University of North Texas, where I am researching advanced data analytics methods and techniques. I have a Master of Science degree in Advanced Data Analytics - Data Science from the same university. I have also earned multiple certifications in Big Data, Machine Learning, GIS, and Tableau. I have over 10 years of experience in data and BI roles, working with diverse industries and domains, such as financial services, oil and gas, and retail. I am a team player, a problem solver, and a lifelong learner.
