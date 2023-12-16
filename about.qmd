@@ -1,6 +1,8 @@
 ---
 title: "Ramesh Ghimire"
+image: 2.jpg
 image: 1.jpg
+
 about:
   template: jolla
   links:
