@@ -15,4 +15,6 @@ about:
       href: https://github.com
 ---
 
-About this blog
+Hello and good morning all,
+
+I am Ramesh Ghimire.
