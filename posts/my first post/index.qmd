@@ -6,8 +6,6 @@ categories: [news, code, analysis]
 image: "image.jpg"
 ---
 
-Hi, Lets run a code
-
 ```{r, echo=TRUE}
 
 ```
