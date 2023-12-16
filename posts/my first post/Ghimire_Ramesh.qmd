@@ -181,9 +181,6 @@ test_data <- testing(split)
 
 ## 
 
-::: {.callout-important appearance="simple"}
-:::
-
 ```{r, echo=TRUE}
 # Please provide your code for Task 3  in this code chunk
 
